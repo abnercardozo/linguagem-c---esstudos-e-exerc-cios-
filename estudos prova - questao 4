@@ -1,0 +1,121 @@
+//meu código 
+#include <stdio.h>
+#include <stdlib.h>
+//PROTOTIPO
+void Funcionario(float salarioBruto, int quantidade, int classificacao, float * salarioLiquido, float * valeAlimentacao);
+//FUNCAO 
+void Funcionario(float salarioBruto, int quantiade, int classificacao, float ){
+        if (classificacao ==     1){
+            return *valeAlimentacao * 0.10 salarioBruto;
+        } else (classificacao = 2){
+            return *valeAlimentacao * 0.05 salarioBruto;
+        } else (classificacao == 3){
+            return *valeAlimentacao * *0.01 salarioBruto;
+        }
+}
+    
+int main()
+{   int i;
+    int opcao;
+    float salarioBruto;
+    int quantidade;
+    int classificacao;
+    float salarioLiquido;
+    float valeAlimentacao;
+    //DECLARAR MENU COM WHILE
+    
+    while(1){
+        printf("Digite 1 para inserir novos dados.\n");
+        printf("[0]: Sair do programa\n");
+        scanf("%i", &opcao);
+        
+        if (opcao != 1) break;
+        
+    } 
+    
+    
+    //DECLARAR VALOR DO SALARIO BRUTOE E OUTROS VALORES 
+        while(salarioBruto < 1201.25){
+             printf("Valor invalido\n");
+             scanf("%f", &salarioBruto);
+        }
+        while(quantidade < 0){
+            printf("Valor inválido.\n");
+            scanf("%d", &quantidade);
+        }
+        while(classificacao < 1 || classificacao > 3){
+            printf("Valor inválido\n");
+            scanf("%d", &classificacao);
+        }
+        
+        printf("Salario Liquido: %.2f\n", salarioLiquido);
+        
+        
+        return 0;
+}
+
+//código corrigido 
+#include <stdio.h>
+
+// PROTOTIPO
+void Funcionario(float SB, int Q, int C, float *SL, float *VA);
+
+// FUNCAO — sem printf/scanf dentro!
+void Funcionario(float SB, int Q, int C, float *SL, float *VA) {
+    
+    // Calcula Vale Alimentacao conforme classificacao
+    if (C == 1) {
+        *VA = 1201.25 + (0.10 * SB * Q);
+    } else if (C == 2) {
+        *VA = 1201.25 + (0.05 * SB * Q);
+    } else if (C == 3) {
+        *VA = 1201.25 + (0.01 * SB * Q);
+    }
+
+    // Calcula Plano de Saude e Salario Liquido
+    float PS = 605.50 + (0.01 * SB * Q);
+    *SL = SB - PS;
+}
+
+int main() {
+    float SB, SL, VA;
+    int Q, C, opcao;
+
+    while (1) {
+        printf("\n[1]: Inserir Funcionario\n");
+        printf("[0]: Sair do programa\n");
+        scanf("%i", &opcao);
+
+        if (opcao != 1) break;
+
+        // Leitura com validacao — dentro do while(1)
+        printf("\nSalario Bruto: ");
+        scanf("%f", &SB);
+        while (SB < 1201.25) {
+            printf("Valor invalido. Salario Bruto: ");
+            scanf("%f", &SB);
+        }
+
+        printf("Quantidade de dependentes: ");
+        scanf("%d", &Q);
+        while (Q < 0) {
+            printf("Valor invalido. Quantidade: ");
+            scanf("%d", &Q);
+        }
+
+        printf("Classificacao (1/2/3): ");
+        scanf("%d", &C);
+        while (C < 1 || C > 3) {
+            printf("Valor invalido. Classificacao: ");
+            scanf("%d", &C);
+        }
+
+        // Chama a funcao passando enderecos de SL e VA
+        Funcionario(SB, Q, C, &SL, &VA);
+
+        printf("\nSalario Liquido:   R$ %.2f\n", SL);
+        printf("Vale Alimentacao:  R$ %.2f\n", VA);
+    }
+
+    return 0;
+}
